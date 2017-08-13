@@ -2,6 +2,7 @@
 # encoding: UTF-8
 set -e
 
+sed -i -e "s/#READ_ONLY/${MYSQL_READ_ONLY}/g" /etc/mysql/mysql.conf.d/mysqld.cnf
 sed -i -e "s/#REPORT_HOST/${MYSQL_REPORT_HOST}/g" /etc/mysql/mysql.conf.d/mysqld.cnf
 sed -i -e "s/#SERVER_ID/${MYSQL_SERVER_ID}/g" /etc/mysql/mysql.conf.d/mysqld.cnf
 
@@ -53,6 +54,8 @@ GRANT SUPER, PROCESS, REPLICATION SLAVE, RELOAD ON *.* TO 'orchestrator'@'localh
 GRANT ALL PRIVILEGES ON orchestrator.* TO 'orchestrator'@'localhost' IDENTIFIED BY 'orchestrator';
 GRANT REPLICATION SLAVE ON *.* TO 'repl'@'172.20.1.%' IDENTIFIED BY 'repl';
 GRANT ALL ON *.* TO 'admin'@'%' IDENTIFIED BY 'admin' WITH GRANT OPTION;
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, ALTER, DROP, INDEX ON *.* TO 'sandbox'@'%' IDENTIFIED BY 'sandbox';
+GRANT SELECT, CREATE USER, REPLICATION CLIENT, SHOW DATABASES, SUPER, PROCESS ON *.* TO 'monitor'@'%' IDENTIFIED BY 'monitor';
 FLUSH PRIVILEGES;
 SET @@SESSION.SQL_LOG_BIN=1;
 EOSQL

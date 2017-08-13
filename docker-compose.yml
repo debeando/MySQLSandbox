@@ -1,6 +1,15 @@
 version: '3'
 
 services:
+  proxysql:
+    image: proxysql
+    build: proxysql
+    ports:
+      - "3306:3306"
+    networks:
+      default:
+        ipv4_address: 172.20.1.100
+
   orchestrator:
     image: orchestrator
     build: orchestrator
@@ -19,6 +28,7 @@ services:
     ports:
       - "33061:3306"
     environment:
+      - MYSQL_READ_ONLY=OFF
       - MYSQL_REPORT_HOST=172.20.1.201
       - MYSQL_SERVER_ID=1
     networks:
@@ -32,6 +42,7 @@ services:
     ports:
       - "33062:3306"
     environment:
+      - MYSQL_READ_ONLY=ON
       - MYSQL_REPORT_HOST=172.20.1.202
       - MYSQL_SERVER_ID=2
     networks:
@@ -45,6 +56,7 @@ services:
     ports:
       - "33063:3306"
     environment:
+      - MYSQL_READ_ONLY=ON
       - MYSQL_REPORT_HOST=172.20.1.203
       - MYSQL_SERVER_ID=3
     networks:
@@ -58,6 +70,7 @@ services:
     ports:
       - "33064:3306"
     environment:
+      - MYSQL_READ_ONLY=ON
       - MYSQL_REPORT_HOST=172.20.1.204
       - MYSQL_SERVER_ID=4
     networks:
@@ -71,6 +84,7 @@ services:
     ports:
       - "33065:3306"
     environment:
+      - MYSQL_READ_ONLY=ON
       - MYSQL_REPORT_HOST=172.20.1.205
       - MYSQL_SERVER_ID=5
     networks:
@@ -84,6 +98,7 @@ services:
     ports:
       - "33066:3306"
     environment:
+      - MYSQL_READ_ONLY=ON
       - MYSQL_REPORT_HOST=172.20.1.206
       - MYSQL_SERVER_ID=6
     networks:

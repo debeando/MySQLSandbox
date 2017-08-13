@@ -29,6 +29,18 @@ Enter to [orchestrator](http://127.0.0.1:3000/web/clusters):
 http://127.0.0.1:3000/web/clusters
 ```
 
+Enter into ProxySQL to MySQL Server:
+
+```
+mysql -h 127.0.0.1 -u sandbox -psandbox -P 3306
+```
+
+Enter into ProxySQL Admin:
+
+```
+docker exec -it mysqlsandbox_proxysql_1 mysql -h 127.0.0.1 -u admin -padmin -P 6032
+```
+
 Debuging container
 
 ```
