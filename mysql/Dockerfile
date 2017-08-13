@@ -29,4 +29,3 @@ RUN rm -rf /var/lib/apt/lists/*
 EXPOSE 3306
 
 ENTRYPOINT ["/root/entrypoint.sh"]
-CMD ["mysqld"]

@@ -22,3 +22,23 @@ docker exec -it mysqlsandbox_db4_1 /root/replicate.sh
 docker exec -it mysqlsandbox_db5_1 /root/replicate.sh
 docker exec -it mysqlsandbox_db6_1 /root/replicate.sh
 ```
+
+Enter to [orchestrator](http://127.0.0.1:3000/web/clusters):
+
+```
+http://127.0.0.1:3000/web/clusters
+```
+
+Debuging container
+
+```
+docker run --name=orchestrator
+           --detach
+           --tty
+           --rm
+           --publish 3000:3000
+           --entrypoint=/bin/bash
+           orchestrator
+
+docker exec -it orchestrator /bin/bash
+```
