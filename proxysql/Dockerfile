@@ -46,9 +46,7 @@ COPY proxysql.cnf /etc/proxysql.cnf
 # Copy script utility
 # -----------------------------------------------------------------------------
 COPY entrypoint.sh /root/entrypoint.sh
-COPY proxysql.sh /root/proxysql.sh
 RUN chmod a+x /root/entrypoint.sh
-RUN chmod a+x /root/proxysql.sh
 
 # -----------------------------------------------------------------------------
 # Clear
