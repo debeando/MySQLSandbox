@@ -105,6 +105,17 @@ services:
       default:
         ipv4_address: 172.20.1.206
 
+  benchmark:
+    image: benchmark
+    build: benchmark
+    ports:
+      - "80:80"
+    networks:
+      default:
+        ipv4_address: 172.20.1.10
+    depends_on:
+      - proxysql
+
 networks:
   default:
     driver: bridge
