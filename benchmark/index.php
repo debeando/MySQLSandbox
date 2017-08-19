@@ -15,7 +15,7 @@ html *
 </head>
 <body>
 <?php
-$host       = "172.20.1.201";
+$host       = "172.20.1.100";
 $username   = "sandbox";
 $password   = "sandbox";
 $dbname     = "sandbox";
@@ -91,32 +91,13 @@ function t2() {
   $host = info($conn);
   $conn->begin_transaction();
   $id = insert($conn, $host);
-  select($conn, $id, $host);
+  select($conn, $id, $host, true);
   $conn->commit();
   close($conn);
 }
 
-function t3() {
-  echo "<b>==> Test 3</b></br>";
-  $conn1 = connect();
-  $conn2 = connect();
-  $host1 = info($conn1);
-  $host2 = info($conn2);
-
-  $conn1->begin_transaction();
-  $id = insert($conn1, $host1);
-  select($conn1, $id, $host1, false, 'In tx-1');
-  select($conn2, $id, $host2, false, 'Another tx-2');
-  $conn1->commit();
-  select($conn2, $id, $host2, true, 'Execute tx-2 after tx-1');
-
-  close($conn1);
-  close($conn2);
-}
-
 t1();
 t2();
-t3();
 
 ?>
 </body>
