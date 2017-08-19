@@ -9,37 +9,39 @@ admin_variables =
 
 mysql_variables =
 {
-  threads=4
-  max_connections=1000
+  commands_stats=true
+  connect_retries_on_failure=10
+  connect_timeout_server=3000
+  connect_timeout_server_max=20000
   default_query_delay=0
   default_query_timeout=36000000
-  have_compress=true
-  poll_timeout=2000
-  interfaces="0.0.0.0:3306;/tmp/proxysql_admin.sock"
   default_schema="information_schema"
-  stacksize=1048576
-  connect_timeout_server=3000
-  monitor_username="monitor"
-  monitor_password="monitor"
-  monitor_history=600000
+  have_compress=true
+  interfaces="0.0.0.0:3306;/tmp/proxysql_admin.sock"
+  max_connections=1000
   monitor_connect_interval=60000
+  monitor_history=600000
+  monitor_password="monitor"
   monitor_ping_interval=10000
   monitor_read_only_interval=1500
   monitor_read_only_timeout=500
+  monitor_username="monitor"
   ping_timeout_server=500
-  commands_stats=true
+  poll_timeout=2000
   sessions_sort=true
-  connect_retries_on_failure=10
+  stacksize=1048576
+  threads=4
 }
 
 mysql_users =
 (
   {
-    username          = "sandbox"
-    password          = "sandbox"
-    max_connections   = 1000
-    default_hostgroup = 0
-    active            = 1
+    active                 = 1
+    default_hostgroup      = 0
+    max_connections        = 100
+    password               = "sandbox"
+    username               = "sandbox"
+    transaction_persistent = 1
   }
 )
 
@@ -47,83 +49,87 @@ mysql_servers =
 (
   {
     address="172.20.1.201"
-    port=3306
     hostgroup=0
-    max_connections=1000
+    max_connections=100
+    port=3306
   },
   {
     address="172.20.1.202"
-    port=3306
     hostgroup=1
-    max_connections=1000
+    max_connections=100
     max_replication_lag=10
+    port=3306
   },
   {
     address="172.20.1.203"
-    port=3306
     hostgroup=1
-    max_connections=1000
+    max_connections=100
     max_replication_lag=10
+    port=3306
   },
   {
     address="172.20.1.204"
-    port=3306
     hostgroup=1
-    max_connections=1000
+    max_connections=100
     max_replication_lag=10
+    port=3306
   },
   {
     address="172.20.1.205"
-    port=3306
     hostgroup=1
-    max_connections=1000
+    max_connections=100
     max_replication_lag=10
+    port=3306
   },
   {
     address="172.20.1.206"
-    port=3306
     hostgroup=1
-    max_connections=1000
+    max_connections=100
     max_replication_lag=10
+    port=3306
   }
 )
 
 mysql_query_rules =
 (
   {
-    rule_id=1
     active=1
+    apply=1
+    destination_hostgroup=0
+    log=1
     match_pattern="^SELECT .* FOR UPDATE$"
-    destination_hostgroup=0
-    apply=1
+    rule_id=1
   },
   {
-    rule_id=2
     active=1
-    match_pattern="^SELECT"
+    apply=1
     destination_hostgroup=1
-    apply=1
+    log=1
+    match_pattern="^SELECT"
+    rule_id=2
   },
   {
-    rule_id=3
     active=1
+    apply=1
+    destination_hostgroup=0
+    log=1
     match_pattern="^SELECT GET_LOCK.*"
-    destination_hostgroup=0
-    apply=1
+    rule_id=3
   },
   {
-    rule_id=3
     active=1
-    match_pattern="^SELECT RELEASE_LOCK.*"
-    destination_hostgroup=0
     apply=1
+    destination_hostgroup=0
+    log=1
+    match_pattern="^SELECT RELEASE_LOCK.*"
+    rule_id=3
   }
 )
 
 mysql_replication_hostgroups =
 (
   {
-    writer_hostgroup=0
     reader_hostgroup=1
+    writer_hostgroup=0
   }
 )

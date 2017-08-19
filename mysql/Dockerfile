@@ -20,9 +20,7 @@ COPY my.cnf /etc/mysql/mysql.conf.d/mysqld.cnf
 RUN chown root:root /etc/mysql/mysql.conf.d/mysqld.cnf
 
 COPY entrypoint.sh /root/entrypoint.sh
-COPY replicate.sh /root/replicate.sh
 RUN chmod a+x /root/entrypoint.sh
-RUN chmod a+x /root/replicate.sh
 
 RUN rm -rf /var/lib/apt/lists/*
 

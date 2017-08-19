@@ -6,6 +6,14 @@ services:
     build: proxysql
     ports:
       - "3306:3306"
+    depends_on:
+      - db1
+      - db2
+      - db3
+      - db4
+      - db5
+      - db6
+      - db7
     networks:
       default:
         ipv4_address: 172.20.1.100
@@ -17,6 +25,12 @@ services:
       - "3000:3000"
     depends_on:
       - db1
+      - db2
+      - db3
+      - db4
+      - db5
+      - db6
+      - db7
     networks:
       default:
         ipv4_address: 172.20.1.200
@@ -104,6 +118,20 @@ services:
     networks:
       default:
         ipv4_address: 172.20.1.206
+
+  db7:
+    image: mysql
+    build: mysql
+    hostname: db7.local
+    ports:
+      - "33067:3306"
+    environment:
+      - MYSQL_READ_ONLY=OFF
+      - MYSQL_REPORT_HOST=172.20.1.207
+      - MYSQL_SERVER_ID=7
+    networks:
+      default:
+        ipv4_address: 172.20.1.207
 
   benchmark:
     image: benchmark
