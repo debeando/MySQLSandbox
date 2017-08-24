@@ -15,7 +15,7 @@ possibility to play with slaves, co-master, and intermediate master.
 
 ## Usage
 
-First steps
+### First steps
 
 ```
 docker-compose build
@@ -23,8 +23,9 @@ docker-compose up
 ./mysql_up_standard.sh
 ```
 
-Run benchmark tool
+### Run benchmark tool
 
 ```
-ab -c 10 -n 100 127.0.0.1/
+brew install siege
+siege -c 2 127.0.0.1
 ```

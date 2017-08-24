@@ -13,11 +13,8 @@ LABEL vendor="Swapbyt3s" \
       description="HAProxy on Centos 7" \
       version="1.0"
 
-# Install additional repository and add repository key
-RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
-
 # Update the repository sources list
-RUN yum -y update
+RUN yum -y --setopt=tsflags=nodocs update
 
 ###############################################################################
 # BEGIN INSTALLATION
@@ -25,17 +22,18 @@ RUN yum -y update
 # -----------------------------------------------------------------------------
 # Install additional packages
 # -----------------------------------------------------------------------------
-RUN yum -y install which wget unzip sysvinit-tools
+RUN yum -y --setopt=tsflags=nodocs install which wget unzip sysvinit-tools
 
 # -----------------------------------------------------------------------------
 # Install the Percona repository package
 # -----------------------------------------------------------------------------
-RUN yum -y install http://www.percona.com/downloads/percona-release/redhat/0.1-4/percona-release-0.1-4.noarch.rpm
+RUN yum -y --setopt=tsflags=nodocs install http://www.percona.com/downloads/percona-release/redhat/0.1-4/percona-release-0.1-4.noarch.rpm
+RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-Percona
 
 # -----------------------------------------------------------------------------
 # Install ProxySQL and MySQL Client
 # -----------------------------------------------------------------------------
-RUN yum -y install proxysql Percona-Server-client-57
+RUN yum -y --setopt=tsflags=nodocs install proxysql Percona-Server-client-57
 
 # -----------------------------------------------------------------------------
 # Copy custom config

@@ -13,14 +13,15 @@ LABEL vendor="Swapbyt3s" \
       description="Apache 2.4 with PHP 5.6 on Centos 7" \
       version="1.0"
 
+# Update the repository sources list
+RUN yum -y --setopt=tsflags=nodocs update
+
 # Install additional repository and add repository key
-RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
-    yum -y install epel-release && \
-    rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm && \
-    rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-remi
+ADD https://rpms.remirepo.net/enterprise/remi.repo /etc/yum.repos.d/
+RUN rpm --import https://rpms.remirepo.net/RPM-GPG-KEY-remi2017
 
 # Update the repository sources list
-RUN yum -y update
+RUN yum -y --setopt=tsflags=nodocs update
 
 ###############################################################################
 # BEGIN INSTALLATION
@@ -104,6 +105,7 @@ RUN rm -r -f /var/www/cgi-bin/ \
 # Install and configure PHP 5.6
 # -----------------------------------------------------------------------------
 RUN yum -y \
+        --setopt=tsflags=nodocs \
         --enablerepo=remi \
         install php56 \
                 php56-php \
@@ -111,7 +113,6 @@ RUN yum -y \
                 php56-php-cli \
                 php56-php-mysqlnd \
                 php56-php-mbstring \
-                php56-php-mcrypt \
                 php56-php-xml \
                 php56-php-xmlrpc \
                 php56-php-devel \
