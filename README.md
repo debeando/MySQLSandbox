@@ -5,7 +5,7 @@ failover, recover a master, everything with traffic simulated.
 
 MySQL Sandbox run in docker and has inside:
 
-- [MySQL Server](https://github.com/mysql/mysql-server)
+- [MySQL Server](https://github.com/mysql/mysql-server) 5.7
 - [Orchestrator](https://github.com/github/orchestrator/)
 - [ProxySQL](https://github.com/sysown/proxysql)
 
@@ -21,6 +21,14 @@ possibility to play with slaves, co-master, and intermediate master.
 docker-compose build
 docker-compose up
 ./mysql_up_standard.sh
+```
+
+Go to [orchestrator](http://127.0.0.1:3000/) to see MySQL topology.
+
+Enter to MySQL Shell to pass by ProxySQL:
+
+```
+mysql -h 127.0.0.1 -u sandbox -psandbox -P 3306
 ```
 
 ### Run benchmark tool
