@@ -23,7 +23,18 @@ RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 # BEGIN INSTALLATION
 ###############################################################################
 # -----------------------------------------------------------------------------
-# Install additional packages
+# Install the Percona repository package
+# -----------------------------------------------------------------------------
+RUN yum -y --setopt=tsflags=nodocs install http://www.percona.com/downloads/percona-release/redhat/0.1-4/percona-release-0.1-4.noarch.rpm
+RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-Percona
+
+# -----------------------------------------------------------------------------
+# Install MySQL Client
+# -----------------------------------------------------------------------------
+RUN yum -y --setopt=tsflags=nodocs install proxysql Percona-Server-client-57
+
+# -----------------------------------------------------------------------------
+# Install Orchestrator
 # -----------------------------------------------------------------------------
 RUN yum -y --setopt=tsflags=nodocs install wget
 

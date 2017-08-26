@@ -2,8 +2,10 @@
 # encoding: UTF-8
 set -e
 
-echo '[Entrypoint] Waiting 60 seconds for load all MySQL Server...'
-sleep 60
+echo '[Entrypoint] Check whether MySQL for Orchestrator is running...'
+while ! mysqladmin ping --host="172.20.1.207" --user="monitor" --password="monitor" --silent; do
+  sleep 1
+done
 
 echo '[Entrypoint] Start Orchestrator.'
 cd /usr/local/orchestrator && ./orchestrator http
