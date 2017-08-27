@@ -1,5 +1,5 @@
 ###############################################################################
-# Dockerfile to build HAProxy container images
+# Dockerfile to build Orchestrator container images
 # Based on Centos 7
 ###############################################################################
 
@@ -31,7 +31,7 @@ RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-Percona
 # -----------------------------------------------------------------------------
 # Install MySQL Client
 # -----------------------------------------------------------------------------
-RUN yum -y --setopt=tsflags=nodocs install proxysql Percona-Server-client-57
+RUN yum -y --setopt=tsflags=nodocs install Percona-Server-client-57
 
 # -----------------------------------------------------------------------------
 # Install Orchestrator
