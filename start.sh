@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS sandbox.test (
   PRIMARY KEY (id),
   UNIQUE (token)
 );
-"
+" > /dev/null 2>&1
 
 docker exec -it mysqlsandbox_orchestrator_1 \
   /usr/bin/orchestrator -c discover -i 172.20.1.201

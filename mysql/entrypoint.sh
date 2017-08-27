@@ -41,7 +41,7 @@ then
 fi
 
 echo "[Entrypoint] Populate TimeZone..."
-mysql_tzinfo_to_sql /usr/share/zoneinfo | "${CMD[@]}" --force 2> /dev/null
+mysql_tzinfo_to_sql /usr/share/zoneinfo | "${CMD[@]}" --force > /dev/null 2>&1
 
 echo "[Entrypoint] Create users."
 "${CMD[@]}" <<-EOSQL
