@@ -90,11 +90,11 @@
   "SkipBinlogEventsContaining": [],
   "ReduceReplicationAnalysisCount": true,
   "FailureDetectionPeriodBlockMinutes": 60,
-  "RecoveryPollSeconds": 10,
-  "RecoveryPeriodBlockSeconds": 3600,
+  "RecoveryPollSeconds": 5,
+  "RecoveryPeriodBlockSeconds": 600,
   "RecoveryIgnoreHostnameFilters": [],
   "RecoverMasterClusterFilters": [
-    "_master_pattern_"
+    ".*"
   ],
   "RecoverIntermediateMasterClusterFilters": [
     "_intermediate_master_pattern_"
@@ -119,7 +119,7 @@
   "DetachLostSlavesAfterMasterFailover": true,
   "ApplyMySQLPromotionAfterMasterFailover": true,
   "MasterFailoverDetachSlaveMasterHost": false,
-  "MasterFailoverLostInstancesDowntimeMinutes": 0,
+  "MasterFailoverLostInstancesDowntimeMinutes": 1,
   "PostponeSlaveRecoveryOnLagMinutes": 0,
   "OSCIgnoreHostnameFilters": [],
   "GraphiteAddr": "",
