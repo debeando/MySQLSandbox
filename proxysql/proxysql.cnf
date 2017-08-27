@@ -38,7 +38,7 @@ mysql_users =
   {
     active                 = 1
     default_hostgroup      = 0
-    max_connections        = 100
+    max_connections        = 90
     password               = "sandbox"
     username               = "sandbox"
     transaction_persistent = 1
@@ -50,41 +50,41 @@ mysql_servers =
   {
     address="172.20.1.201"
     hostgroup=0
-    max_connections=100
+    max_connections=30
     port=3306
   },
   {
     address="172.20.1.202"
     hostgroup=1
-    max_connections=100
+    max_connections=30
     max_replication_lag=10
     port=3306
   },
   {
     address="172.20.1.203"
     hostgroup=1
-    max_connections=100
+    max_connections=30
     max_replication_lag=10
     port=3306
   },
   {
     address="172.20.1.204"
     hostgroup=1
-    max_connections=100
+    max_connections=30
     max_replication_lag=10
     port=3306
   },
   {
     address="172.20.1.205"
     hostgroup=1
-    max_connections=100
+    max_connections=30
     max_replication_lag=10
     port=3306
   },
   {
     address="172.20.1.206"
     hostgroup=1
-    max_connections=100
+    max_connections=30
     max_replication_lag=10
     port=3306
   }

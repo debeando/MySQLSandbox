@@ -20,7 +20,7 @@ possibility to play with slaves, co-master, and intermediate master.
 ```
 docker-compose build
 docker-compose up
-./mysql_up_standard.sh
+./start.sh
 ```
 
 Go to [orchestrator](http://127.0.0.1:3000/) to see MySQL topology.
