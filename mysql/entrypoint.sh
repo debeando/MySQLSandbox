@@ -46,6 +46,7 @@ mysql_tzinfo_to_sql /usr/share/zoneinfo | "${CMD[@]}" --force > /dev/null 2>&1
 echo "[Entrypoint] Create users."
 "${CMD[@]}" <<-EOSQL
 SET @@SESSION.SQL_LOG_BIN=0;
+DROP DATABASE IF EXISTS test;
 CREATE DATABASE IF NOT EXISTS orchestrator;
 GRANT ALL PRIVILEGES ON orchestrator.* TO 'orchestrator'@'%' IDENTIFIED BY 'orchestrator';
 GRANT SUPER, PROCESS, REPLICATION SLAVE, RELOAD ON *.* TO 'orchestrator'@'%';
