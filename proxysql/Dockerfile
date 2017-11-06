@@ -1,5 +1,5 @@
 ###############################################################################
-# Dockerfile to build HAProxy container images
+# Dockerfile to build ProxySQL container images
 # Based on Centos 7
 ###############################################################################
 
@@ -10,8 +10,8 @@ FROM centos:7
 MAINTAINER swapbyt3s@gmail.com
 
 LABEL vendor="Swapbyt3s" \
-      description="HAProxy on Centos 7" \
-      version="1.0"
+      description="ProxySQL on Centos 7" \
+      version="1.4.3"
 
 # Update the repository sources list
 RUN yum -y --setopt=tsflags=nodocs update
