@@ -15,10 +15,11 @@ html *
 </head>
 <body>
 <?php
-$host       = "172.20.1.100";
-$username   = "sandbox";
-$password   = "sandbox";
-$dbname     = "sandbox";
+
+$host     = "172.20.1.100"; // ProxySQL
+$username = "sandbox";
+$password = "sandbox";
+$dbname   = "sandbox";
 
 function connect() {
   global $host, $username, $password, $dbname;
@@ -98,7 +99,6 @@ function t2() {
 
 t1();
 t2();
-
 ?>
 </body>
 </html>

@@ -10,9 +10,9 @@ admin_variables =
 mysql_variables =
 {
   commands_stats=true
-  connect_retries_on_failure=10
-  connect_timeout_server=3000
-  connect_timeout_server_max=20000
+  connect_retries_on_failure=1
+  connect_timeout_server=1000
+  connect_timeout_server_max=1000
   default_query_delay=0
   default_query_timeout=36000000
   default_schema="information_schema"

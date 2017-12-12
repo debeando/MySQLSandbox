@@ -1,0 +1,17 @@
+{
+  "checks": [
+    {
+      "id": "mysqlport",
+      "name": "MySQL TCP on port 3306",
+      "tcp": "127.0.0.1:3306",
+      "interval": "10s",
+      "timeout": "1s"
+    },
+    {
+      "id": "mysqlping",
+      "name": "MySQL Ping",
+      "args": ["/usr/bin/mysqladmin", "ping"],
+      "interval": "10s"
+    }
+  ]
+}

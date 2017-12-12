@@ -2,6 +2,15 @@
 # encoding: UTF-8
 set -e
 
+echo '[Entrypoint] Start consul agent.'
+consul agent -data-dir=/tmp/consul \
+             -config-dir=/etc/consul.d \
+             -retry-join=172.20.1.150 \
+             -datacenter=mysql \
+             -node-meta="role:mysql" \
+             -enable-script-checks \
+  3>&1 2>&1 1>& /dev/null &
+
 sed -i -e "s/#READ_ONLY/${MYSQL_READ_ONLY}/g" /etc/mysql/mysql.conf.d/mysqld.cnf
 sed -i -e "s/#REPORT_HOST/${MYSQL_REPORT_HOST}/g" /etc/mysql/mysql.conf.d/mysqld.cnf
 sed -i -e "s/#SERVER_ID/${MYSQL_SERVER_ID}/g" /etc/mysql/mysql.conf.d/mysqld.cnf
@@ -16,7 +25,7 @@ mkdir -p "$DATADIR"
 mkdir -p "$SOCKETDIR"
 chown -R mysql:mysql "$DATADIR"
 chown -R mysql:root "$SOCKETDIR"
-echo '' > /var/log/mysql/error.log
+> /var/log/mysql/error.log
 
 echo '[Entrypoint] Initializing database.'
 mysqld --initialize-insecure \
@@ -41,7 +50,8 @@ then
 fi
 
 echo "[Entrypoint] Populate TimeZone..."
-mysql_tzinfo_to_sql /usr/share/zoneinfo | "${CMD[@]}" --force > /dev/null 2>&1
+# With "( .. ) 2> /dev/null" suppress any std[out/err].
+( mysql_tzinfo_to_sql /usr/share/zoneinfo | "${CMD[@]}" --force ) 2> /dev/null
 
 echo "[Entrypoint] Create users."
 "${CMD[@]}" <<-EOSQL

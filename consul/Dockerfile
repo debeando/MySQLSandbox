@@ -1,5 +1,5 @@
 ###############################################################################
-# Dockerfile to build ProxySQL container images
+# Dockerfile to build Orchestrator container images
 # Based on Centos 7
 ###############################################################################
 
@@ -10,8 +10,8 @@ FROM centos:7
 MAINTAINER swapbyt3s@gmail.com
 
 LABEL vendor="Swapbyt3s" \
-      description="ProxySQL on Centos 7" \
-      version="1.4.3"
+      description="Consul on Centos 7" \
+      version="1.0.1"
 
 # Update the repository sources list
 RUN yum -y --setopt=tsflags=nodocs update
@@ -25,7 +25,11 @@ RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 # -----------------------------------------------------------------------------
 # Install additional packages
 # -----------------------------------------------------------------------------
-RUN yum -y --setopt=tsflags=nodocs install which wget unzip sysvinit-tools
+RUN yum -y --setopt=tsflags=nodocs install unzip
+
+ADD https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 /usr/local/bin/
+RUN chmod +x /usr/local/bin/jq-linux64 && \
+		mv /usr/local/bin/jq-linux64 /usr/local/bin/jq
 
 # -----------------------------------------------------------------------------
 # Install the Percona repository package
@@ -34,18 +38,21 @@ RUN yum -y --setopt=tsflags=nodocs install http://www.percona.com/downloads/perc
 RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-Percona
 
 # -----------------------------------------------------------------------------
-# Install ProxySQL and MySQL Client
+# Install MySQL Client
 # -----------------------------------------------------------------------------
-RUN yum -y --setopt=tsflags=nodocs install proxysql Percona-Server-client-57
+RUN yum -y --setopt=tsflags=nodocs install Percona-Server-client-57
 
 # -----------------------------------------------------------------------------
-# Copy custom config
+# Install consul
 # -----------------------------------------------------------------------------
-COPY proxysql.cnf /etc/proxysql.cnf
+ADD https://releases.hashicorp.com/consul/1.0.1/consul_1.0.1_linux_amd64.zip /root/
+RUN unzip /root/consul_1.0.1_linux_amd64.zip -d /root/ && \
+    rm -f /root/consul_1.0.1_linux_amd64.zip && \
+    mv /root/consul /usr/local/bin/ && \
+    mkdir -p /etc/consul.d/
 
-# -----------------------------------------------------------------------------
-# Copy script utility
-# -----------------------------------------------------------------------------
+COPY services.json /etc/consul.d/services.json
+
 COPY entrypoint.sh /root/entrypoint.sh
 RUN chmod a+x /root/entrypoint.sh
 
@@ -56,11 +63,18 @@ RUN yum -y clean all && \
     rm -rf /var/cache/yum/*
 ############################## INSTALLATION END ###############################
 
-# Set the working directory to /var/www
-WORKDIR /root
+# Server RPC is used for communication between Consul clients and servers for internal
+# request forwarding.
+EXPOSE 8300
 
-# Expose the default http port
-EXPOSE 3306 6032
+# Serf LAN and WAN (WAN is used only by Consul servers) are used for gossip between
+# Consul agents. LAN is within the datacenter and WAN is between just the Consul
+# servers in all datacenters.
+EXPOSE 8301 8301/udp 8302 8302/udp
+
+# HTTP and DNS (both TCP and UDP) are the primary interfaces that applications
+# use to interact with Consul.
+EXPOSE 8500 8600 8600/udp
 
 # Start service on run container
 ENTRYPOINT ["/root/entrypoint.sh"]
