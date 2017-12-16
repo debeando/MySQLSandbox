@@ -34,8 +34,8 @@ Version avaible: 5.5, 5.6 and 5.7.
 Run docker
 
 ```
-docker-compose build
-docker-compose up
+make build
+make up
 ```
 
 ### Configure topology
@@ -64,7 +64,7 @@ You have the next tools to use:
 Enter to MySQL Shell to pass by ProxySQL:
 
 ```
-mysql -h 127.0.0.1 -u sandbox -psandbox -P 3306
+make mysql
 ```
 
 ### Run benchmark tool
@@ -80,5 +80,5 @@ Stop and remove containers, networks, images, and volumes. Maybe have problem
 to start new cluster, try down the old cluster and retry.
 
 ```
-docker-compose down
+make down
 ```
