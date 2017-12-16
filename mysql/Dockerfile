@@ -33,6 +33,7 @@ RUN unzip /root/consul_1.0.1_linux_amd64.zip -d /root/ && \
     mv /root/consul /usr/local/bin/ && \
     mkdir -p /etc/consul.d/
 
+COPY services.json /etc/consul.d/services.json
 COPY checks.json /etc/consul.d/checks.json
 
 # -----------------------------------------------------------------------------

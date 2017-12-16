@@ -1,0 +1,17 @@
+{
+  "services":[
+    {
+      "id":"mysql",
+      "name":"mysql",
+      "address":"127.0.0.1",
+      "tags":[
+        "mysql"
+      ],
+      "port":3306,
+      "check":{
+        "script":"mysqladmin ping",
+        "interval":"10s"
+      }
+    }
+  ]
+}

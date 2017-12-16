@@ -1,14 +1,26 @@
 {
   "services":[
-  {
-   "id": "proxysql",
-   "name": "proxysql",
-   "address": "192.168.1.100",
-   "tags": ["mysql"],
-   "port": 6033,
-   "check": {
-     "script": "mysqladmin ping --host=192.168.1.100 --port=3306 --user=sandbox --password=sandbox",
-     "interval": "10s"}
+    {
+      "id":"mysql",
+      "name":"mysql",
+      "address":"172.20.1.100",
+      "tags":[
+        "mysql"
+      ],
+      "port":3306,
+      "check":{
+        "script":"mysqladmin ping --host=172.20.1.100 --port=3306 --user=sandbox --password=sandbox",
+        "interval":"10s"
+      }
+    },
+    {
+      "id":"proxysql",
+      "name":"proxysql",
+      "address":"172.20.1.100",
+      "tags":[
+        "mysql"
+      ],
+      "port":6033
     }
   ]
 }
