@@ -16,12 +16,7 @@ services:
     ports:
       - "3306:3306"
     depends_on:
-      - db1
-      - db2
-      - db3
-      - db4
-      - db5
-      - db6
+      - mysql
     networks:
       default:
         ipv4_address: 172.20.1.100
@@ -32,120 +27,16 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - db1
-      - db2
-      - db3
-      - db4
-      - db5
-      - db6
+      - mysql
     networks:
       default:
         ipv4_address: 172.20.1.200
 
-  db1:
-    image: "mysql:${MYSQL_VERSION}"
+  mysql:
+    image: "mysql:5.7"
     build: mysql
-    ports:
-      - "33061:3306"
-    environment:
-      - MYSQL_READ_ONLY=OFF
-      - MYSQL_REPORT_HOST=172.20.1.201
-      - MYSQL_SERVER_ID=1
     depends_on:
       - consul
-    networks:
-      default:
-        ipv4_address: 172.20.1.201
-
-  db2:
-    image: "mysql:${MYSQL_VERSION}"
-    build: mysql
-    ports:
-      - "33062:3306"
-    environment:
-      - MYSQL_READ_ONLY=ON
-      - MYSQL_REPORT_HOST=172.20.1.202
-      - MYSQL_SERVER_ID=2
-    depends_on:
-      - consul
-    networks:
-      default:
-        ipv4_address: 172.20.1.202
-
-  db3:
-    image: "mysql:${MYSQL_VERSION}"
-    build: mysql
-    ports:
-      - "33063:3306"
-    environment:
-      - MYSQL_READ_ONLY=ON
-      - MYSQL_REPORT_HOST=172.20.1.203
-      - MYSQL_SERVER_ID=3
-    depends_on:
-      - consul
-    networks:
-      default:
-        ipv4_address: 172.20.1.203
-
-  db4:
-    image: "mysql:${MYSQL_VERSION}"
-    build: mysql
-    ports:
-      - "33064:3306"
-    environment:
-      - MYSQL_READ_ONLY=ON
-      - MYSQL_REPORT_HOST=172.20.1.204
-      - MYSQL_SERVER_ID=4
-    depends_on:
-      - consul
-    networks:
-      default:
-        ipv4_address: 172.20.1.204
-
-  db5:
-    image: "mysql:${MYSQL_VERSION}"
-    build: mysql
-    ports:
-      - "33065:3306"
-    environment:
-      - MYSQL_READ_ONLY=ON
-      - MYSQL_REPORT_HOST=172.20.1.205
-      - MYSQL_SERVER_ID=5
-    depends_on:
-      - consul
-    networks:
-      default:
-        ipv4_address: 172.20.1.205
-
-  db6:
-    image: "mysql:${MYSQL_VERSION}"
-    build: mysql
-    ports:
-      - "33066:3306"
-    environment:
-      - MYSQL_READ_ONLY=ON
-      - MYSQL_REPORT_HOST=172.20.1.206
-      - MYSQL_SERVER_ID=6
-    depends_on:
-      - consul
-    networks:
-      default:
-        ipv4_address: 172.20.1.206
-
-  orchestrator_db:
-    image: "mysql:${MYSQL_VERSION}"
-    build: mysql
-    ports:
-      - "33067:3306"
-    environment:
-      - MYSQL_READ_ONLY=OFF
-      - MYSQL_REPORT_HOST=172.20.1.207
-      - MYSQL_SERVER_ID=7
-    depends_on:
-      - consul
-    networks:
-      default:
-        ipv4_address: 172.20.1.207
 
   benchmark:
     image: benchmark

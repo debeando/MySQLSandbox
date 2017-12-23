@@ -1,0 +1,44 @@
+{
+  "datacenter": "docker",
+  "data_dir": "/tmp/consul",
+  "log_level": "INFO",
+  "check_update_interval": "10s",
+  "enable_script_checks": true,
+  "disable_update_check": true,
+  "node_meta":
+  {
+    "service": "proxysql"
+  },
+  "retry_join":
+  [
+    "172.20.1.150"
+  ],
+  "services":[
+    {
+      "id":"proxysql",
+      "name":"proxysql",
+      "checks": [
+        {
+          "id":"client_port",
+          "name":"MySQL Listen on port 3306",
+          "tcp":"127.0.0.1:3306",
+          "interval":"3s",
+          "timeout":"1s"
+        },
+        {
+          "id":"client_port",
+          "name":"ProxySQL Listen on port 3306",
+          "tcp":"127.0.0.1:6032",
+          "interval":"3s",
+          "timeout":"1s"
+        },
+        {
+          "id": "ping",
+          "name":"Ping",
+          "script": "/usr/bin/mysqladmin ping -h 127.0.0.1 -u sandbox -psandbox",
+          "interval":"1s"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "datacenter": "docker",
+  "data_dir": "/tmp/consul",
+  "log_level": "INFO",
+  "check_update_interval": "10s",
+  "enable_script_checks": true,
+  "disable_update_check": true,
+  "node_meta":
+  {
+    "service": "mysql"
+  },
+  "retry_join":
+  [
+    "172.20.1.150"
+  ],
+  "services":[
+    {
+      "id":"mysql",
+      "name":"mysql",
+      "checks": [
+        {
+          "id":"port",
+          "name":"Listen on port 3306",
+          "tcp":"127.0.0.1:3306",
+          "interval":"3s",
+          "timeout":"1s"
+        },
+        {
+          "id": "ping",
+          "name":"Ping",
+          "script": "/usr/bin/mysqladmin ping",
+          "interval":"1s"
+        },
+        {
+          "id": "replication_running",
+          "name": "MySQL Replication SQL Running",
+          "script": "/usr/bin/mysql --vertical --execute 'SHOW SLAVE STATUS' | grep -w Slave_SQL_Running | awk 'END{ if ( NR == 0 ) { print \"Is not set replication.\"; exit 0; } else if ( NR > 0 && $2 == \"Yes\" ) { print $1$2; exit 0; } else { print $1$2; exit 1; } }'",
+          "interval": "1s"
+        },
+        {
+          "id": "replication_lag",
+          "name": "MySQL Replication Lag",
+          "script": "/usr/bin/mysql --vertical --execute 'SHOW SLAVE STATUS' | grep -w Seconds_Behind_Master | awk 'END{ if ( NR == 0 ) { print \"Is not set replication.\"; exit 0; } else if ( NR > 0 && $2 >= 10 ) { print $1$2; exit 0; } else { print $1$2; exit 1; } }'",
+          "interval": "1s"
+        }
+      ]
+    }
+  ],
+  "watches": [
+    {
+      "type": "checks",
+      "state": "passing",
+      "handler": "/usr/bin/curl --silent http://172.20.1.200:3000/api/discover/$(/sbin/ip route | awk '/kernel/ { print $9 }')/3306"
+    }
+  ]
+}

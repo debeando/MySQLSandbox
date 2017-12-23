@@ -3,15 +3,11 @@
 set -e
 
 echo '[Entrypoint] Start consul agent.'
-consul agent -data-dir=/tmp/consul \
-             -config-dir=/etc/consul.d \
-             -retry-join=172.20.1.150 \
-             -datacenter=mysql \
-             -node-meta="role:mysql" \
-             -enable-script-checks \
-  3>&1 2>&1 1>& /dev/null &
+consul agent -config-file=/etc/consul.d/config.json &
 
-sed -i -e "s/#READ_ONLY/${MYSQL_READ_ONLY}/g" /etc/mysql/mysql.conf.d/mysqld.cnf
+MYSQL_REPORT_HOST=$(/sbin/ip route | awk '/kernel/ { print $9 }')
+MYSQL_SERVER_ID="${MYSQL_REPORT_HOST//./}"
+
 sed -i -e "s/#REPORT_HOST/${MYSQL_REPORT_HOST}/g" /etc/mysql/mysql.conf.d/mysqld.cnf
 sed -i -e "s/#SERVER_ID/${MYSQL_SERVER_ID}/g" /etc/mysql/mysql.conf.d/mysqld.cnf
 

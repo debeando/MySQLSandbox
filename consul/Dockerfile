@@ -51,8 +51,11 @@ RUN unzip /root/consul_1.0.1_linux_amd64.zip -d /root/ && \
     mv /root/consul /usr/local/bin/ && \
     mkdir -p /etc/consul.d/
 
-COPY services.json /etc/consul.d/services.json
+COPY config.json /etc/consul.d/config.json
 
+# -----------------------------------------------------------------------------
+# Copy script utility
+# -----------------------------------------------------------------------------
 COPY entrypoint.sh /root/entrypoint.sh
 RUN chmod a+x /root/entrypoint.sh
 

@@ -48,44 +48,9 @@ mysql_users =
 mysql_servers =
 (
   {
-    address="172.20.1.201"
+    address="172.20.1.2"
     hostgroup=0
     max_connections=30
-    port=3306
-  },
-  {
-    address="172.20.1.202"
-    hostgroup=1
-    max_connections=30
-    max_replication_lag=10
-    port=3306
-  },
-  {
-    address="172.20.1.203"
-    hostgroup=1
-    max_connections=30
-    max_replication_lag=10
-    port=3306
-  },
-  {
-    address="172.20.1.204"
-    hostgroup=1
-    max_connections=30
-    max_replication_lag=10
-    port=3306
-  },
-  {
-    address="172.20.1.205"
-    hostgroup=1
-    max_connections=30
-    max_replication_lag=10
-    port=3306
-  },
-  {
-    address="172.20.1.206"
-    hostgroup=1
-    max_connections=30
-    max_replication_lag=10
     port=3306
   }
 )

@@ -4,10 +4,13 @@ help: ## This help.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 build: ## Build the containers
-	docker-compose build
+	docker-compose build $(name)
 
 up: ## Run all containers
-	docker-compose up
+	docker-compose up $(name)
+
+scale: ## Scale MySQL containers
+	docker-compose scale mysql=$(numbers)
 
 down: ## Stop all containers
 	docker-compose down

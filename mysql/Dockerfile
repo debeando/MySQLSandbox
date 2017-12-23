@@ -7,12 +7,12 @@ LABEL vendor="Swapbyt3s" \
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && \
-    apt-get upgrade -y
-RUN apt-get install -y apt-utils \
-                       tzdata \
-                       vim \
-                       unzip
+RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+  apt-utils \
+  curl \
+  tzdata \
+  vim \
+  unzip
 
 # -----------------------------------------------------------------------------
 # Install MySQL Server
@@ -33,8 +33,7 @@ RUN unzip /root/consul_1.0.1_linux_amd64.zip -d /root/ && \
     mv /root/consul /usr/local/bin/ && \
     mkdir -p /etc/consul.d/
 
-COPY services.json /etc/consul.d/services.json
-COPY checks.json /etc/consul.d/checks.json
+COPY config.json /etc/consul.d/config.json
 
 # -----------------------------------------------------------------------------
 # Copy script utility

@@ -36,7 +36,7 @@ RUN yum -y --setopt=tsflags=nodocs install Percona-Server-client-57
 # -----------------------------------------------------------------------------
 # Install Orchestrator
 # -----------------------------------------------------------------------------
-RUN yum -y --setopt=tsflags=nodocs install wget
+RUN yum -y --setopt=tsflags=nodocs install wget unzip
 
 RUN yum -y --setopt=tsflags=nodocs install https://github.com/github/orchestrator/releases/download/v3.0.2/orchestrator-3.0.2-1.x86_64.rpm
 RUN yum -y --setopt=tsflags=nodocs install https://github.com/github/orchestrator/releases/download/v3.0.2/orchestrator-cli-3.0.2-1.x86_64.rpm
@@ -45,6 +45,20 @@ COPY orchestrator.conf.json /etc/orchestrator.conf.json
 RUN chown root:root /etc/orchestrator.conf.json && \
     chmod a+x /etc/orchestrator.conf.json
 
+# -----------------------------------------------------------------------------
+# Install consul
+# -----------------------------------------------------------------------------
+ADD https://releases.hashicorp.com/consul/1.0.1/consul_1.0.1_linux_amd64.zip /root/
+RUN unzip /root/consul_1.0.1_linux_amd64.zip -d /root/ && \
+    rm -f /root/consul_1.0.1_linux_amd64.zip && \
+    mv /root/consul /usr/local/bin/ && \
+    mkdir -p /etc/consul.d/
+
+COPY config.json /etc/consul.d/config.json
+
+# -----------------------------------------------------------------------------
+# Copy script utility
+# -----------------------------------------------------------------------------
 COPY entrypoint.sh /root/entrypoint.sh
 RUN chmod a+x /root/entrypoint.sh
 

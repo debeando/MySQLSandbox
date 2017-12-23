@@ -14,9 +14,6 @@ CREATE TABLE IF NOT EXISTS sandbox.test (
 );
 " > /dev/null 2>&1
 
-docker exec -it mysqlsandbox_orchestrator_1 \
-  /usr/bin/orchestrator -c discover -i 172.20.1.201
-
 for i in {2..6}
 do
   docker exec -it mysqlsandbox_db1_1 \
