@@ -28,7 +28,7 @@
         {
           "id": "ping",
           "name":"Ping",
-          "script": "/usr/bin/mysqladmin ping",
+          "args": ["/usr/bin/mysqladmin", "ping"],
           "interval":"1s"
         },
         {

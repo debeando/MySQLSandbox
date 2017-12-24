@@ -58,9 +58,10 @@ COPY config.json /etc/consul.d/config.json
 # Copy script utility
 # -----------------------------------------------------------------------------
 COPY entrypoint.sh /root/entrypoint.sh
-COPY proxysql.sh /root/proxysql.sh
+COPY handler.sh /root/handler.sh
 RUN chmod a+x /root/entrypoint.sh
-RUN chmod a+x /root/proxysql.sh
+RUN chmod a+x /root/handler.sh
+RUN touch /root/handler.log
 
 # -----------------------------------------------------------------------------
 # Clear

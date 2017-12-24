@@ -35,10 +35,17 @@
         {
           "id": "ping",
           "name":"Ping",
-          "script": "/usr/bin/mysqladmin ping -h 127.0.0.1 -u sandbox -psandbox",
+          "args": ["/usr/bin/mysqladmin", "ping", "-h", "127.0.0.1", "-u", "sandbox", "-psandbox"],
           "interval":"1s"
         }
       ]
+    }
+  ],
+  "watches": [
+    {
+      "type": "key",
+      "key": "mysql/server",
+      "args": ["/root/handler.sh"]
     }
   ]
 }
