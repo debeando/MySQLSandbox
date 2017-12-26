@@ -14,6 +14,10 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
   vim \
   unzip
 
+ADD https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 /usr/local/bin/
+RUN chmod +x /usr/local/bin/jq-linux64 && \
+    mv /usr/local/bin/jq-linux64 /usr/local/bin/jq
+
 # -----------------------------------------------------------------------------
 # Install MySQL Server
 # -----------------------------------------------------------------------------
@@ -27,9 +31,9 @@ RUN chown root:root /etc/mysql/mysql.conf.d/mysqld.cnf
 # -----------------------------------------------------------------------------
 # Install consul
 # -----------------------------------------------------------------------------
-ADD https://releases.hashicorp.com/consul/1.0.1/consul_1.0.1_linux_amd64.zip /root/
-RUN unzip /root/consul_1.0.1_linux_amd64.zip -d /root/ && \
-    rm -f /root/consul_1.0.1_linux_amd64.zip && \
+ADD https://releases.hashicorp.com/consul/1.0.2/consul_1.0.2_linux_amd64.zip /root/
+RUN unzip /root/consul_1.0.2_linux_amd64.zip -d /root/ && \
+    rm -f /root/consul_1.0.2_linux_amd64.zip && \
     mv /root/consul /usr/local/bin/ && \
     mkdir -p /etc/consul.d/
 
@@ -39,7 +43,9 @@ COPY config.json /etc/consul.d/config.json
 # Copy script utility
 # -----------------------------------------------------------------------------
 COPY entrypoint.sh /root/entrypoint.sh
+COPY provisioning.sh /root/provisioning.sh
 RUN chmod a+x /root/entrypoint.sh
+RUN chmod a+x /root/provisioning.sh
 
 # -----------------------------------------------------------------------------
 # Clear

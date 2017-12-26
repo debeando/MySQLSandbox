@@ -10,7 +10,7 @@ MySQL Sandbox run in docker and has inside:
 - [MySQL Server](https://github.com/mysql/mysql-server) V-5.7
 - [Orchestrator](https://github.com/github/orchestrator/) V-3.0.3
 - [ProxySQL](https://github.com/sysown/proxysql) V-1.4.3
-- [Consul](https://www.consul.io/intro/index.html) V-1.0.1
+- [Consul](https://www.consul.io/intro/index.html) V-1.0.2
 
 We use a multi-container Docker to defining and running six services for MySQL,
 one service for Orchestrator and one for ProxySQL. With six services you have a
