@@ -11,7 +11,7 @@ MAINTAINER swapbyt3s@gmail.com
 
 LABEL vendor="Swapbyt3s" \
       description="GitHub Orchestrator on Centos 7" \
-      version="3.0.2"
+      version="3.0.3"
 
 # Update the repository sources list
 RUN yum -y --setopt=tsflags=nodocs update
@@ -38,8 +38,8 @@ RUN yum -y --setopt=tsflags=nodocs install Percona-Server-client-57
 # -----------------------------------------------------------------------------
 RUN yum -y --setopt=tsflags=nodocs install wget unzip
 
-RUN yum -y --setopt=tsflags=nodocs install https://github.com/github/orchestrator/releases/download/v3.0.2/orchestrator-3.0.2-1.x86_64.rpm
-RUN yum -y --setopt=tsflags=nodocs install https://github.com/github/orchestrator/releases/download/v3.0.2/orchestrator-cli-3.0.2-1.x86_64.rpm
+RUN yum -y --setopt=tsflags=nodocs install https://github.com/github/orchestrator/releases/download/v3.0.3/orchestrator-3.0.3-1.x86_64.rpm
+RUN yum -y --setopt=tsflags=nodocs install https://github.com/github/orchestrator/releases/download/v3.0.3/orchestrator-cli-3.0.3-1.x86_64.rpm
 
 COPY orchestrator.conf.json /etc/orchestrator.conf.json
 RUN chown root:root /etc/orchestrator.conf.json && \
