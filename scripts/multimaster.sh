@@ -1,6 +1,7 @@
 #!/bin/bash
 # encoding: UTF-8
 
+# Todo: Query to the consul to get the number of instances.
 # necesary for create co-master:
 
 # Set default replication user and password into mysql.slave_master_info

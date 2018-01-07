@@ -13,13 +13,3 @@ CREATE TABLE IF NOT EXISTS sandbox.test (
   UNIQUE (token)
 );
 " > /dev/null 2>&1
-
-for i in {2..6}
-do
-  docker exec -it mysqlsandbox_db1_1 \
-    mysqlreplicate --master=admin:admin@172.20.1.201:3306 \
-                   --slave=admin:admin@172.20.1.20${i}:3306 \
-                   --rpl-user=repl:repl \
-                   --start-from-beginning \
-                   -vvv
-done

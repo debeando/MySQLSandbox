@@ -30,3 +30,12 @@ console: ## Enter in MySQL console bypass from ProxySQL
 
 admin: ## Enter in ProxySQL console
 	docker exec -it mysqlsandbox_proxysql_1 /bin/mysql -h 127.0.0.1 -u admin -padmin -P 6032
+
+load_schema: ## Load default schema on MySQL
+	scripts/schema.sh
+
+masterslaves: ## Configure classic replication topology Master and Slaves
+	scrips/masterslaves.sh
+
+multimaster: ## Configure MultiMaster replication topology
+	scrips/multimaster.sh
