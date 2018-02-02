@@ -45,16 +45,6 @@ mysql_users =
   }
 )
 
-mysql_servers =
-(
-  {
-    address="172.20.1.2"
-    hostgroup=0
-    max_connections=30
-    port=3306
-  }
-)
-
 mysql_query_rules =
 (
   {

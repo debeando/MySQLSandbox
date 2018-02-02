@@ -1,8 +1,7 @@
 {
   "datacenter": "docker",
   "data_dir": "/tmp/consul",
-  "log_level": "INFO",
-  "check_update_interval": "10s",
+  "log_level": "warn",
   "enable_script_checks": true,
   "disable_update_check": true,
   "node_meta":
@@ -44,7 +43,7 @@
   "watches": [
     {
       "type": "key",
-      "key": "mysql/server",
+      "key": "mysql/servers",
       "args": ["/root/handler.sh"]
     }
   ]

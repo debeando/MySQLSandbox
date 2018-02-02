@@ -1,8 +1,7 @@
 {
   "datacenter": "docker",
   "data_dir": "/tmp/consul",
-  "log_level": "INFO",
-  "check_update_interval": "10s",
+  "log_level": "warn",
   "enable_script_checks": true,
   "disable_update_check": true,
   "node_meta":
@@ -40,7 +39,7 @@
         {
           "id": "replication_lag",
           "name": "MySQL Replication Lag",
-          "script": "/usr/bin/mysql --vertical --execute 'SHOW SLAVE STATUS' | grep -w Seconds_Behind_Master | awk 'END{ if ( NR == 0 ) { print \"Is not set replication.\"; exit 0; } else if ( NR > 0 && $2 >= 10 ) { print $1$2; exit 0; } else { print $1$2; exit 1; } }'",
+          "script": "/usr/bin/mysql --vertical --execute 'SHOW SLAVE STATUS' | grep -w Seconds_Behind_Master | awk 'END{ if ( NR == 0 ) { print \"Is not set replication.\"; exit 0; } else if ( NR > 0 && $2 >= 10 ) { print $1$2; exit 1; } else { print $1$2; exit 0; } }'",
           "interval": "1s"
         }
       ]
@@ -50,7 +49,7 @@
     {
       "type": "checks",
       "state": "passing",
-      "handler": "/usr/bin/curl --silent http://172.20.1.200:3000/api/discover/$(/sbin/ip route | awk '/kernel/ { print $9 }')/3306"
+      "handler": "/root/provisioning.sh"
     }
   ]
 }

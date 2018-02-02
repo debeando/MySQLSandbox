@@ -1,0 +1,38 @@
+hay algun mysql registrado?
+si> hay algun mysql up?
+	si> esta en orchestrator?
+		si> hay un slave sync?
+			si> dump --slave
+				si> restore
+					si> catchup
+						si> register en proxysql
+						no> wait
+			no> dump --master
+				si> restore
+		no> discover
+	no> setup
+no> registrate por consul
+
+
+# Find IP Address 
+/usr/bin/orchestrator -c clusters | awk -F':' '{print $1}'
+
+#!/bin/bash
+# encoding: UTF-8
+set -e
+
+sleep 15
+
+for i in {30..0}; do
+  if $(curl --output /dev/null --silent --head --fail http://172.20.1.200:3000/api/status); then
+    break
+  fi
+  sleep 1
+done
+
+#if [ "$i" > 0 ]; then
+curl --silent http://172.20.1.200:3000/api/discover/${HOST_IP}/3306
+#fi
+
+# ---
+
