@@ -23,24 +23,6 @@
           "tcp":"127.0.0.1:3306",
           "interval":"3s",
           "timeout":"1s"
-        },
-        {
-          "id": "ping",
-          "name":"Ping",
-          "args": ["/usr/bin/mysqladmin", "ping"],
-          "interval":"1s"
-        },
-        {
-          "id": "replication_running",
-          "name": "MySQL Replication SQL Running",
-          "script": "/usr/bin/mysql --vertical --execute 'SHOW SLAVE STATUS' | grep -w Slave_SQL_Running | awk 'END{ if ( NR == 0 ) { print \"Is not set replication.\"; exit 0; } else if ( NR > 0 && $2 == \"Yes\" ) { print $1$2; exit 0; } else { print $1$2; exit 1; } }'",
-          "interval": "1s"
-        },
-        {
-          "id": "replication_lag",
-          "name": "MySQL Replication Lag",
-          "script": "/usr/bin/mysql --vertical --execute 'SHOW SLAVE STATUS' | grep -w Seconds_Behind_Master | awk 'END{ if ( NR == 0 ) { print \"Is not set replication.\"; exit 0; } else if ( NR > 0 && $2 >= 10 ) { print $1$2; exit 1; } else { print $1$2; exit 0; } }'",
-          "interval": "1s"
         }
       ]
     }
@@ -49,7 +31,7 @@
     {
       "type": "checks",
       "state": "passing",
-      "handler": "/root/provisioning.sh"
+      "handler": "/root/provisioning.sh > /var/log/mysql/provisioning.log"
     }
   ]
 }

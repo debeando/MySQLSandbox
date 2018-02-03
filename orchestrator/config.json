@@ -23,16 +23,7 @@
           "tcp":"127.0.0.1:3000",
           "interval":"3s",
           "timeout":"1s"
-        },
-        {
-			    "id": "api",
-			    "name": "HTTP API",
-			    "http": "http://127.0.0.1:3000/api/status",
-			    "tls_skip_verify": false,
-			    "method": "GET",
-			    "interval": "3s",
-			    "timeout": "1s"
-			  }
+        }
       ]
     }
   ]

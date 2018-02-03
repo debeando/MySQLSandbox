@@ -18,24 +18,11 @@
       "name":"proxysql",
       "checks": [
         {
-          "id":"client_port",
-          "name":"MySQL Listen on port 3306",
+          "id":"port",
+          "name":"Listen on port 3306",
           "tcp":"127.0.0.1:3306",
           "interval":"3s",
           "timeout":"1s"
-        },
-        {
-          "id":"client_port",
-          "name":"ProxySQL Listen on port 3306",
-          "tcp":"127.0.0.1:6032",
-          "interval":"3s",
-          "timeout":"1s"
-        },
-        {
-          "id": "ping",
-          "name":"Ping",
-          "args": ["/usr/bin/mysqladmin", "ping", "-h", "127.0.0.1", "-u", "sandbox", "-psandbox"],
-          "interval":"1s"
         }
       ]
     }
