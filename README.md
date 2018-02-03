@@ -22,6 +22,7 @@ Every container use Centos 7.
 
 - Only run MySQL 5.7.
 - Only scale MySQL containers.
+- Only have high availability for MySQL.
 - Only run one container for ProxySQL, Orchestrator and Consul.
 
 ## Usage
