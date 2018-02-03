@@ -10,7 +10,6 @@ while ! mysqladmin ping --host=$LOCAL_IP --user="monitor" --password="monitor" -
   sleep 1
 done
 
-# TODO: :
 echo "--> Check if registered instance..."
 IS_REGISTERED=$(curl --silent --output /dev/null --write-out '%{http_code}' http://$ORCHESTRATOR_IP:3000/api/instance/$LOCAL_IP/3306)
 if [ $IS_REGISTERED -ne 200 ]
@@ -29,13 +28,12 @@ echo "--> LOCAL_IP: ${LOCAL_IP}"
 echo "--> MASTER_IP: ${MASTER_IP}"
 echo "--> SLAVES_IP: ${SLAVES_IP}"
 
-# TODO: Revisar si esta instancia esta OK para irnorar todo el proceso.
-
 if [ -z "$MASTER_IP" ]; then
   echo "--> Is not set variable: MASTER_IP"
   exit 1
 fi
 
+IS_MASTER="true"
 HOST_IP=$MASTER_IP
 
 if [ "$MASTER_IP" != "$LOCAL_IP" ]
@@ -51,6 +49,7 @@ then
 
         if [ $SLAVE_STATUS == "true" ]
         then
+          IS_MASTER="false"
           HOST_IP=$SLAVE_IP
           break
         fi
@@ -59,24 +58,39 @@ then
   fi
 
   echo "--> Backup data from: ${HOST_IP}"
-  # hacer dump dependiendo si es master o slave.
-  mysqldump --host=$HOST_IP \
-            --user=admin \
-            --password=admin \
-            --all-databases \
-            --triggers \
-            --routines \
-            --events \
-            --master-data | mysql --force
+  if [ $IS_MASTER == "true" ]
+  then
+    echo "--> Backup data from master."
+    mysqldump --host=$HOST_IP \
+              --user=admin \
+              --password=admin \
+              --all-databases \
+              --triggers \
+              --routines \
+              --events \
+              --master-data=2 \
+              --single-transaction \
+              --quick | mysql --force
+  else
+    echo "--> Backup data from slave."
+    mysqldump --host=$HOST_IP \
+              --user=admin \
+              --password=admin \
+              --all-databases \
+              --triggers \
+              --routines \
+              --events \
+              --dump-slave=2 \
+              --single-transaction \
+              --quick | mysql --force
 
+  fi
   mysqlreplicate --master=admin:admin@$MASTER_IP:3306 \
                  --slave=admin:admin@127.0.0.1:3306 \
                  --rpl-user=repl:repl \
                  -vvv
 
   mysql --execute="SET GLOBAL read_only = ON;"
-
-  # Esperar hasta que el slave haya hecho catchup.
 fi
 
 if [ -z $(consul kv get -recurse) ]
