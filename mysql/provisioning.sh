@@ -2,8 +2,7 @@
 # encoding: UTF-8
 set -e
 
-# TODO: Obtener la IP de orchestrator desde consul.
-ORCHESTRATOR_IP="172.20.1.200"
+ORCHESTRATOR_IP=$(curl --silent localhost:8500/v1/catalog/nodes | jq -r '.[] | select(.Meta.service == "orchestrator") | .Address')
 LOCAL_IP=$(awk 'END{print $1}' /etc/hosts)
 
 echo "--> Check whether MySQL is running..."
