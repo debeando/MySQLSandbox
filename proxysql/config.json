@@ -1,5 +1,5 @@
 {
-  "datacenter": "docker",
+  "datacenter": "MySQLSandbox",
   "data_dir": "/tmp/consul",
   "log_level": "warn",
   "enable_script_checks": true,
