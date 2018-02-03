@@ -14,7 +14,7 @@ si> hay algun mysql up?
 no> registrate por consul
 
 
-# Find IP Address 
+# Find IP Address
 /usr/bin/orchestrator -c clusters | awk -F':' '{print $1}'
 
 #!/bin/bash
@@ -36,3 +36,4 @@ curl --silent http://172.20.1.200:3000/api/discover/${HOST_IP}/3306
 
 # ---
 
+Agregar una consulta random pesada.
