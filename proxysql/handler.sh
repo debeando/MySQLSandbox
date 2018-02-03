@@ -2,7 +2,7 @@
 # encoding: UTF-8
 
 # el handler se activa si los checks pasan.
-# Usar orchestrator para agregar los servers.
+# Usar orchestrator para hacer check del servidor ok y agregar al proxysql.
 # validar si ya esta agregado, si hay nuevos hacer load & save.
 
 exec >> /root/handler.log

@@ -42,6 +42,14 @@ make clear
 make up
 ```
 
+### Scale
+
+Next command scale only MySQL Server to trhee instances:
+
+```
+make scale numbers=3
+```
+
 ### Configure topology
 
 You have two options to start play. Standard replications with one master and 5
