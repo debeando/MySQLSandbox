@@ -27,11 +27,15 @@ do
     INSERT INTO mysql_servers (
       hostgroup_id,
       hostname,
-      port
+      port,
+      max_connections,
+      max_replication_lag
     ) VALUES (
       1,
       '${IP}',
-      3306
+      3306,
+      10,
+      60
     );"
 done
 
