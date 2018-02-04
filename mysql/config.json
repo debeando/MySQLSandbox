@@ -12,26 +12,11 @@
   [
     "172.20.1.150"
   ],
-  "services":[
-    {
-      "id":"mysql",
-      "name":"mysql",
-      "checks": [
-        {
-          "id":"port",
-          "name":"Listen on port 3306",
-          "tcp":"127.0.0.1:3306",
-          "interval":"3s",
-          "timeout":"1s"
-        }
-      ]
-    }
-  ],
   "watches": [
     {
       "type": "checks",
       "state": "passing",
-      "handler": "/root/provisioning.sh > /var/log/mysql/provisioning.log"
+      "handler": "/root/provisioning.sh"
     }
   ]
 }
