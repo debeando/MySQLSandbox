@@ -18,8 +18,8 @@ down: ## Stop all containers
 ps: ## Show status for all containers
 	docker-compose ps
 
-bash: ## Enter bash in specific container, make name=proxysql bash
-	docker exec -it mysqlsandbox_$(name)_1 /bin/bash
+bash: ## Enter bash in specific container, make name=proxysql number=1 bash
+	docker exec -it mysqlsandbox_$(name)_$(number) /bin/bash
 
 clear: ## Remove all images with <none> name
 	- docker ps -a -q | xargs docker rm
@@ -32,10 +32,13 @@ admin: ## Enter in ProxySQL console
 	docker exec -it mysqlsandbox_proxysql_1 /bin/mysql -h 127.0.0.1 -u admin -padmin -P 6032
 
 load_schema: ## Load default schema on MySQL
-	scripts/schema.sh
+	./scripts/schema.sh
 
 masterslaves: ## Configure classic replication topology Master and Slaves
 	scrips/masterslaves.sh
 
 multimaster: ## Configure MultiMaster replication topology
 	scrips/multimaster.sh
+
+stresstest: ## Start stress test with siege tool
+	siege -c 2 -d 0.5 127.0.0.1
