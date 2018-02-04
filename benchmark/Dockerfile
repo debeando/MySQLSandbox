@@ -19,6 +19,7 @@ RUN yum -y --setopt=tsflags=nodocs update
 # Install additional repository and add repository key
 ADD https://rpms.remirepo.net/enterprise/remi.repo /etc/yum.repos.d/
 RUN rpm --import https://rpms.remirepo.net/RPM-GPG-KEY-remi2017
+RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 
 # Update the repository sources list
 RUN yum -y --setopt=tsflags=nodocs update

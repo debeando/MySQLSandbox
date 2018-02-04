@@ -1,0 +1,9 @@
+{
+  "datacenter": "MySQLSandbox",
+  "data_dir": "/tmp/consul",
+  "log_level": "warn",
+  "bootstrap": true,
+  "server": true,
+  "enable_script_checks": true,
+  "disable_update_check": true
+}

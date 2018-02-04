@@ -1,0 +1,30 @@
+{
+  "datacenter": "MySQLSandbox",
+  "data_dir": "/tmp/consul",
+  "log_level": "warn",
+  "enable_script_checks": true,
+  "disable_update_check": true,
+  "node_meta":
+  {
+    "service": "orchestrator"
+  },
+  "retry_join":
+  [
+    "172.20.1.150"
+  ],
+  "services":[
+    {
+      "id":"orchestrator",
+      "name":"orchestrator",
+      "checks": [
+        {
+          "id":"port",
+          "name":"Listen on port 3000",
+          "tcp":"127.0.0.1:3000",
+          "interval":"3s",
+          "timeout":"1s"
+        }
+      ]
+    }
+  ]
+}

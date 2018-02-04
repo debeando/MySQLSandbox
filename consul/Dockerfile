@@ -10,8 +10,8 @@ FROM centos:7
 MAINTAINER swapbyt3s@gmail.com
 
 LABEL vendor="Swapbyt3s" \
-      description="GitHub Orchestrator on Centos 7" \
-      version="3.0.3"
+      description="Consul on Centos 7" \
+      version="1.0.2"
 
 # Update the repository sources list
 RUN yum -y --setopt=tsflags=nodocs update
@@ -23,6 +23,15 @@ RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 # BEGIN INSTALLATION
 ###############################################################################
 # -----------------------------------------------------------------------------
+# Install additional packages
+# -----------------------------------------------------------------------------
+RUN yum -y --setopt=tsflags=nodocs install unzip
+
+ADD https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 /usr/local/bin/
+RUN chmod +x /usr/local/bin/jq-linux64 && \
+		mv /usr/local/bin/jq-linux64 /usr/local/bin/jq
+
+# -----------------------------------------------------------------------------
 # Install the Percona repository package
 # -----------------------------------------------------------------------------
 RUN yum -y --setopt=tsflags=nodocs install http://www.percona.com/downloads/percona-release/redhat/0.1-4/percona-release-0.1-4.noarch.rpm
@@ -32,18 +41,6 @@ RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-Percona
 # Install MySQL Client
 # -----------------------------------------------------------------------------
 RUN yum -y --setopt=tsflags=nodocs install Percona-Server-client-57
-
-# -----------------------------------------------------------------------------
-# Install Orchestrator
-# -----------------------------------------------------------------------------
-RUN yum -y --setopt=tsflags=nodocs install wget unzip
-
-RUN yum -y --setopt=tsflags=nodocs install https://github.com/github/orchestrator/releases/download/v3.0.3/orchestrator-3.0.3-1.x86_64.rpm
-RUN yum -y --setopt=tsflags=nodocs install https://github.com/github/orchestrator/releases/download/v3.0.3/orchestrator-cli-3.0.3-1.x86_64.rpm
-
-COPY orchestrator.conf.json /etc/orchestrator.conf.json
-RUN chown root:root /etc/orchestrator.conf.json && \
-    chmod a+x /etc/orchestrator.conf.json
 
 # -----------------------------------------------------------------------------
 # Install consul
@@ -69,11 +66,18 @@ RUN yum -y clean all && \
     rm -rf /var/cache/yum/*
 ############################## INSTALLATION END ###############################
 
-# Set the working directory to /var/www
-WORKDIR /root
+# Server RPC is used for communication between Consul clients and servers for internal
+# request forwarding.
+EXPOSE 8300
 
-# Expose the default http port
-EXPOSE 3000
+# Serf LAN and WAN (WAN is used only by Consul servers) are used for gossip between
+# Consul agents. LAN is within the datacenter and WAN is between just the Consul
+# servers in all datacenters.
+EXPOSE 8301 8301/udp 8302 8302/udp
+
+# HTTP and DNS (both TCP and UDP) are the primary interfaces that applications
+# use to interact with Consul.
+EXPOSE 8500 8600 8600/udp
 
 # Start service on run container
 ENTRYPOINT ["/root/entrypoint.sh"]
