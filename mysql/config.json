@@ -1,0 +1,22 @@
+{
+  "datacenter": "MySQLSandbox",
+  "data_dir": "/tmp/consul",
+  "log_level": "warn",
+  "enable_script_checks": true,
+  "disable_update_check": true,
+  "node_meta":
+  {
+    "service": "mysql"
+  },
+  "retry_join":
+  [
+    "172.20.1.150"
+  ],
+  "watches": [
+    {
+      "type": "checks",
+      "state": "passing",
+      "handler": "/root/provisioning.sh"
+    }
+  ]
+}

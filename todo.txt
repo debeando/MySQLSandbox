@@ -1,0 +1,6 @@
+TODO:
+
+- Agregar un diagrama de como funciona.
+- Agregar una consulta random pesada.
+- Agregar prometheus.io & grafana.
+

@@ -10,15 +10,15 @@ admin_variables =
 mysql_variables =
 {
   commands_stats=true
-  connect_retries_on_failure=10
-  connect_timeout_server=3000
-  connect_timeout_server_max=20000
+  connect_retries_on_failure=1
+  connect_timeout_server=1000
+  connect_timeout_server_max=1000
   default_query_delay=0
   default_query_timeout=36000000
   default_schema="information_schema"
   have_compress=true
   interfaces="0.0.0.0:3306;/tmp/proxysql_admin.sock"
-  max_connections=1000
+  max_connections=100
   monitor_connect_interval=60000
   monitor_history=600000
   monitor_password="monitor"
@@ -30,7 +30,7 @@ mysql_variables =
   poll_timeout=2000
   sessions_sort=true
   stacksize=1048576
-  threads=4
+  threads=1
 }
 
 mysql_users =
@@ -38,55 +38,10 @@ mysql_users =
   {
     active                 = 1
     default_hostgroup      = 0
-    max_connections        = 90
+    max_connections        = 100
     password               = "sandbox"
     username               = "sandbox"
     transaction_persistent = 1
-  }
-)
-
-mysql_servers =
-(
-  {
-    address="172.20.1.201"
-    hostgroup=0
-    max_connections=30
-    port=3306
-  },
-  {
-    address="172.20.1.202"
-    hostgroup=1
-    max_connections=30
-    max_replication_lag=10
-    port=3306
-  },
-  {
-    address="172.20.1.203"
-    hostgroup=1
-    max_connections=30
-    max_replication_lag=10
-    port=3306
-  },
-  {
-    address="172.20.1.204"
-    hostgroup=1
-    max_connections=30
-    max_replication_lag=10
-    port=3306
-  },
-  {
-    address="172.20.1.205"
-    hostgroup=1
-    max_connections=30
-    max_replication_lag=10
-    port=3306
-  },
-  {
-    address="172.20.1.206"
-    hostgroup=1
-    max_connections=30
-    max_replication_lag=10
-    port=3306
   }
 )
 
