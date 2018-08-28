@@ -7,8 +7,8 @@ services:
     ports:
       - "8500:8500"
     networks:
-      default:
-        ipv4_address: 172.20.1.150
+      internal:
+        ipv4_address: 172.16.238.150
 
   proxysql:
     image: proxysql
@@ -18,8 +18,8 @@ services:
     depends_on:
       - mysql
     networks:
-      default:
-        ipv4_address: 172.20.1.100
+      internal:
+        ipv4_address: 172.16.238.100
 
   orchestrator:
     image: orchestrator
@@ -29,14 +29,16 @@ services:
     depends_on:
       - mysql
     networks:
-      default:
-        ipv4_address: 172.20.1.200
+      internal:
+        ipv4_address: 172.16.238.200
 
   mysql:
     image: "mysql:5.7"
     build: mysql
     depends_on:
       - consul
+    networks:
+      - internal
 
   benchmark:
     image: benchmark
@@ -44,15 +46,15 @@ services:
     ports:
       - "80:80"
     networks:
-      default:
-        ipv4_address: 172.20.1.10
+      internal:
+        ipv4_address: 172.16.238.10
     depends_on:
       - proxysql
 
 networks:
-  default:
+  internal:
     driver: bridge
     ipam:
       driver: default
       config:
-        - subnet: 172.20.1.0/24
+        - subnet: 172.16.238.0/24

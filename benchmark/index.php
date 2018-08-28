@@ -16,7 +16,7 @@ html *
 <body>
 <?php
 
-$host     = "172.20.1.100"; // ProxySQL
+$host     = "172.16.238.100"; // ProxySQL
 $username = "sandbox";
 $password = "sandbox";
 $dbname   = "sandbox";
@@ -54,7 +54,7 @@ function select($conn, $id, $host = NULL, $notify = false, $comment = NULL) {
     $value = "<text style='color:#A52A2A'>empty</text>";
 
     if ($notify) {
-      header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
+      header($_SERVER["SERVER_PROTOCOL"]." 500 Internal error");
     }
   }
 

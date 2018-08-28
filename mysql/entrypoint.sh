@@ -54,12 +54,13 @@ echo "[Entrypoint] Create users."
 SET @@SESSION.SQL_LOG_BIN=0;
 DROP DATABASE IF EXISTS test;
 CREATE DATABASE IF NOT EXISTS orchestrator;
+CHANGE MASTER TO MASTER_USER = 'repl', MASTER_PASSWORD = 'repl';
 GRANT ALL PRIVILEGES ON orchestrator.* TO 'orchestrator'@'%' IDENTIFIED BY 'orchestrator';
 GRANT SUPER, PROCESS, REPLICATION SLAVE, RELOAD ON *.* TO 'orchestrator'@'%';
 GRANT ALL PRIVILEGES ON orchestrator.* TO 'orchestrator'@'localhost' IDENTIFIED BY 'orchestrator';
 GRANT SUPER, PROCESS, REPLICATION SLAVE, RELOAD ON *.* TO 'orchestrator'@'localhost';
 GRANT ALL PRIVILEGES ON orchestrator.* TO 'orchestrator'@'localhost' IDENTIFIED BY 'orchestrator';
-GRANT REPLICATION SLAVE ON *.* TO 'repl'@'172.20.1.%' IDENTIFIED BY 'repl';
+GRANT REPLICATION SLAVE ON *.* TO 'repl'@'172.16.238.%' IDENTIFIED BY 'repl';
 GRANT ALL ON *.* TO 'admin'@'%' IDENTIFIED BY 'admin' WITH GRANT OPTION;
 GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, ALTER, DROP, INDEX ON *.* TO 'sandbox'@'%' IDENTIFIED BY 'sandbox';
 GRANT SELECT, CREATE USER, REPLICATION CLIENT, SHOW DATABASES, SUPER, PROCESS ON *.* TO 'monitor'@'%' IDENTIFIED BY 'monitor';
