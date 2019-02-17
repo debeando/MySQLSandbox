@@ -27,9 +27,8 @@ RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 # -----------------------------------------------------------------------------
 RUN yum -y --setopt=tsflags=nodocs install which wget unzip sysvinit-tools
 
-ADD https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 /usr/local/bin/
-RUN chmod +x /usr/local/bin/jq-linux64 && \
-    mv /usr/local/bin/jq-linux64 /usr/local/bin/jq
+RUN yum install epel-release -y && \
+    yum install jq -y
 
 # -----------------------------------------------------------------------------
 # Install the Percona repository package

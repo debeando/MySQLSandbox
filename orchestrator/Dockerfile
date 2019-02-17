@@ -25,7 +25,7 @@ RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 # -----------------------------------------------------------------------------
 # Install the Percona repository package
 # -----------------------------------------------------------------------------
-RUN yum -y --setopt=tsflags=nodocs install http://www.percona.com/downloads/percona-release/redhat/0.1-4/percona-release-0.1-4.noarch.rpm
+RUN yum -y --setopt=tsflags=nodocs install https://repo.percona.com/percona/yum/percona-release-1.0-7.noarch.rpm
 RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-Percona
 
 # -----------------------------------------------------------------------------
@@ -38,10 +38,8 @@ RUN yum -y --setopt=tsflags=nodocs install Percona-Server-client-57
 # -----------------------------------------------------------------------------
 RUN yum -y --setopt=tsflags=nodocs install wget unzip
 
-ADD https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 /usr/local/bin/
-RUN chmod +x /usr/local/bin/jq-linux64 && \
-    mv /usr/local/bin/jq-linux64 /usr/local/bin/jq && \
-    ln -s /usr/local/bin/jq /usr/bin/jq
+RUN yum install epel-release -y && \
+    yum install jq -y
 
 RUN yum -y --setopt=tsflags=nodocs --skip-broken install https://github.com/github/orchestrator/releases/download/v3.0.14/orchestrator-3.0.14-1.x86_64.rpm
 RUN yum -y --setopt=tsflags=nodocs --skip-broken install https://github.com/github/orchestrator/releases/download/v3.0.14/orchestrator-cli-3.0.14-1.x86_64.rpm

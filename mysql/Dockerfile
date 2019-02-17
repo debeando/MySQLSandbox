@@ -12,11 +12,8 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
   curl \
   tzdata \
   vim \
-  unzip
-
-ADD https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 /usr/local/bin/
-RUN chmod +x /usr/local/bin/jq-linux64 && \
-    mv /usr/local/bin/jq-linux64 /usr/local/bin/jq
+  unzip \
+  jq
 
 # -----------------------------------------------------------------------------
 # Install MySQL Server
