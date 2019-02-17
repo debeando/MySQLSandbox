@@ -51,9 +51,10 @@ RUN chown root:root /etc/orchestrator.conf.json && \
 # -----------------------------------------------------------------------------
 # Install consul
 # -----------------------------------------------------------------------------
-ADD https://releases.hashicorp.com/consul/1.0.2/consul_1.0.2_linux_amd64.zip /root/
-RUN unzip /root/consul_1.0.2_linux_amd64.zip -d /root/ && \
-    rm -f /root/consul_1.0.2_linux_amd64.zip && \
+
+ADD https://releases.hashicorp.com/consul/1.4.2/consul_1.4.2_linux_amd64.zip /root/
+RUN unzip /root/consul_1.4.2_linux_amd64.zip -d /root/ && \
+    rm -f /root/consul_1.4.2_linux_amd64.zip && \
     mv /root/consul /usr/local/bin/ && \
     mkdir -p /etc/consul.d/
 
