@@ -29,12 +29,12 @@ RUN yum -y --setopt=tsflags=nodocs install which wget unzip sysvinit-tools
 
 ADD https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 /usr/local/bin/
 RUN chmod +x /usr/local/bin/jq-linux64 && \
-		mv /usr/local/bin/jq-linux64 /usr/local/bin/jq
+    mv /usr/local/bin/jq-linux64 /usr/local/bin/jq
 
 # -----------------------------------------------------------------------------
 # Install the Percona repository package
 # -----------------------------------------------------------------------------
-RUN yum -y --setopt=tsflags=nodocs install http://www.percona.com/downloads/percona-release/redhat/0.1-4/percona-release-0.1-4.noarch.rpm
+RUN yum -y --setopt=tsflags=nodocs install https://repo.percona.com/percona/yum/percona-release-1.0-7.noarch.rpm
 RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-Percona
 
 # -----------------------------------------------------------------------------
