@@ -40,5 +40,8 @@ masterslaves: ## Configure classic replication topology Master and Slaves
 multimaster: ## Configure MultiMaster replication topology
 	./scripts/multimaster.sh
 
-stresstest: ## Start stress test with siege tool
-	siege -c 2 -d 0.5 127.0.0.1
+stresstest-post: ## Start stress test with siege tool making HTTP/POST
+	siege -c 2 'http://127.0.0.1:8080/user/ POST'
+
+stresstest-get: ## Start stress test with siege tool making HTTP/GET
+	siege -c 2 'http://127.0.0.1:8080/user/random/'

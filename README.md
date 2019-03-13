@@ -88,7 +88,8 @@ make mysql
 
 ```
 brew install siege
-siege -c 2 127.0.0.1
+siege -c 2 'http://127.0.0.1:8080/user/ POST'
+siege -c 2 'http://127.0.0.1:8080/user/random/'
 ```
 
 ## Rotar master without downtime

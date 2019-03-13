@@ -54,6 +54,7 @@ echo "[Entrypoint] Create users."
 SET @@SESSION.SQL_LOG_BIN=0;
 DROP DATABASE IF EXISTS test;
 CREATE DATABASE IF NOT EXISTS orchestrator;
+CREATE DATABASE IF NOT EXISTS sandbox;
 CHANGE MASTER TO MASTER_USER = 'repl', MASTER_PASSWORD = 'repl';
 GRANT ALL PRIVILEGES ON orchestrator.* TO 'orchestrator'@'%' IDENTIFIED BY 'orchestrator';
 GRANT SUPER, PROCESS, REPLICATION SLAVE, RELOAD ON *.* TO 'orchestrator'@'%';
