@@ -52,7 +52,7 @@ RUN rm -rf /var/lib/apt/lists/*
 ############################## INSTALLATION END ###############################
 
 # Expose the default http port
-EXPOSE 3306
+EXPOSE 3306/tcp
 
 # Start service on run container
 ENTRYPOINT ["/root/entrypoint.sh"]
