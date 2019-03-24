@@ -25,7 +25,7 @@ you have a possibility to play with slaves, co-master, and intermediate master.
 
 ## Usage
 
-To simplify the usage, is implemented Makefile, and you have the all commands
+To simplify the usage, is implemented [Makefile](https://github.com/swapbyt3s/MySQLSandbox/blob/master/Makefile), and you have the all commands
 necessary to playing with this sandbox. For example, you can; up, down and scale
 containers or enter in the bash. Change topology replication or enter in MySQL
 or ProxySQL and more...
