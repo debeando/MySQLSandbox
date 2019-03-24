@@ -1,5 +1,5 @@
 ###############################################################################
-# Dockerfile to build Orchestrator container images
+# Dockerfile to build Consul container images
 # Based on Centos 7
 ###############################################################################
 

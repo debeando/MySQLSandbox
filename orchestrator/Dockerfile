@@ -77,7 +77,7 @@ RUN yum -y clean all && \
 WORKDIR /root
 
 # Expose the default http port
-EXPOSE 3000
+EXPOSE 3000/tcp
 
 # Start service on run container
 ENTRYPOINT ["/root/entrypoint.sh"]
