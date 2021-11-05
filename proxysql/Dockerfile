@@ -39,7 +39,7 @@ RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-Percona
 # -----------------------------------------------------------------------------
 # Install ProxySQL and MySQL Client
 # -----------------------------------------------------------------------------
-RUN yum -y --setopt=tsflags=nodocs install proxysql Percona-Server-client-57
+RUN yum -y --setopt=tsflags=nodocs install proxysql2 Percona-Server-client-57
 COPY proxysql.cnf /etc/proxysql.cnf
 
 # -----------------------------------------------------------------------------

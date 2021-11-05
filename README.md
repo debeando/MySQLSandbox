@@ -9,7 +9,7 @@ MySQL Sandbox run in docker and has inside:
 
 - [MySQL Server](https://github.com/mysql/mysql-server) V-5.7
 - [Orchestrator](https://github.com/github/orchestrator/) V-3.2.6
-- [ProxySQL](https://github.com/sysown/proxysql) (Install latest version 1.4.*)
+- [ProxySQL](https://github.com/sysown/proxysql) (Install latest version 2.*)
 - [Consul](https://www.consul.io/intro/index.html) V-1.4.2
 
 We use a multi-container Docker to defining and running any services for MySQL,
