@@ -11,7 +11,7 @@ MAINTAINER swapbyt3s@gmail.com
 
 LABEL vendor="Swapbyt3s" \
       description="GitHub Orchestrator on Centos 7" \
-      version="3.0.14"
+      version="3.2.6"
 
 # Update the repository sources list
 RUN yum -y --setopt=tsflags=nodocs update
@@ -41,8 +41,8 @@ RUN yum -y --setopt=tsflags=nodocs install wget unzip
 RUN yum install epel-release -y && \
     yum install jq -y
 
-RUN yum -y --setopt=tsflags=nodocs --skip-broken install https://github.com/github/orchestrator/releases/download/v3.0.14/orchestrator-3.0.14-1.x86_64.rpm
-RUN yum -y --setopt=tsflags=nodocs --skip-broken install https://github.com/github/orchestrator/releases/download/v3.0.14/orchestrator-cli-3.0.14-1.x86_64.rpm
+RUN yum -y --setopt=tsflags=nodocs --skip-broken install https://github.com/openark/orchestrator/releases/download/v3.2.6/orchestrator-3.2.6-1.x86_64.rpm
+RUN yum -y --setopt=tsflags=nodocs --skip-broken install https://github.com/openark/orchestrator/releases/download/v3.2.6/orchestrator-cli-3.2.6-1.x86_64.rpm
 
 COPY orchestrator.conf.json /etc/orchestrator.conf.json
 RUN chown root:root /etc/orchestrator.conf.json && \

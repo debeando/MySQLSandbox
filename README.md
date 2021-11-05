@@ -8,7 +8,7 @@ failover, recover a master, scale slaves, everything with traffic simulated.
 MySQL Sandbox run in docker and has inside:
 
 - [MySQL Server](https://github.com/mysql/mysql-server) V-5.7
-- [Orchestrator](https://github.com/github/orchestrator/) V-3.0.14
+- [Orchestrator](https://github.com/github/orchestrator/) V-3.2.6
 - [ProxySQL](https://github.com/sysown/proxysql) (Install latest version 1.4.*)
 - [Consul](https://www.consul.io/intro/index.html) V-1.4.2
 
